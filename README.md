@@ -1,2 +1,2 @@
 # AVR-Programming
-This repo consists of example codes and how to program a ATmega 8/328p 8 - Bit Microcontroller, Build the envirionment for the programming the chip and Bootloading the Chip
+This repo consists of example codes and how to program a ATmega 8/328p 8 - Bit Microcontroller, Build the envirionment for programming the chip and Bootloading the Chip
