@@ -1,20 +1,25 @@
-  MCU = atmega8
+###############-----------------------------------------------###############
+##########							   ##########	
+##########		PROJECT SPECIFICATION - HARDWARE	   ##########
+##########	CHECK THIS FILE BEFORE PROGRAMMING THE DEVICE 	   ##########
+###############-----------------------------------------------###############
+MCU = atmega8
 # MCU = attiny20
 # MCU = attiny2313
 # MCU = attiny45
-
+###############-----------------------------------------------###############
 # Target file name (without extension).
 TARGET = main
-
+###############-----------------------------------------------###############
 # Programming hardware: type avrdude -c ?
 # to get a full listing.
 # AVRDUDE_PROGRAMMER = dapa
 AVRDUDE_PROGRAMMER = USBasp      
 # AVRDUDE_PROGRAMMER = dt006
-
-AVRDUDE_PORT = /dev/usb    # not really needed for usb 
+###############-----------------------------------------------###############
+AVRDUDE_PORT = /dev/usb    		# not really needed for usb 
 #AVRDUDE_PORT = /dev/parport0           # linux
-# AVRDUDE_PORT = lpt1		       # windows
+# AVRDUDE_PORT = lpt1		        # windows
 
 ############# Don't need to change below here for most purposes  (Elliot)
 
@@ -24,20 +29,18 @@ OPT = s
 
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
-
+###############-----------------------------------------------###############
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c
-
+###############-----------------------------------------------###############
 # If there is more than one source file, append them above, or modify and
 # uncomment the following:
 #SRC += foo.c bar.c
-
+###############-----------------------------------------------###############
 # You can also wrap lines by appending a backslash to the end of the line:
 #SRC += baz.c \
 #xyzzy.c
-
-
-
+###############-----------------------------------------------###############
 # List Assembler source files here.
 # Make them always end in a capital .S.  Files ending in a lowercase .s
 # will not be considered source files but generated files (assembler
@@ -47,12 +50,12 @@ SRC = $(TARGET).c
 # care about how the name is spelled on its command-line.
 ASRC = 
 
-
+###############-----------------------------------------------###############
 # List any extra directories to look for include files here.
 #     Each directory must be seperated by a space.
 EXTRAINCDIRS = 
 
-
+###############-----------------------------------------------###############
 # Optional compiler flags.
 #  -g:        generate debugging information (for GDB, or for COFF conversion)
 #  -O*:       optimization level
@@ -66,7 +69,7 @@ CFLAGS = -g -O$(OPT) \
 -Wa,-adhlns=$(<:.c=.lst) \
 $(patsubst %,-I%,$(EXTRAINCDIRS))
 
-
+###############-----------------------------------------------###############
 # Set a "language standard" compiler flag.
 #   Unremark just one line below to set the language standard to use.
 #   gnu99 = C99 + GNU extensions. See GCC manual for more information.
@@ -75,8 +78,7 @@ $(patsubst %,-I%,$(EXTRAINCDIRS))
 #CFLAGS += -std=c99
 CFLAGS += -std=gnu99
 
-
-
+###############-----------------------------------------------###############
 # Optional assembler flags.
 #  -Wa,...:   tell GCC to pass this to the assembler.
 #  -ahlms:    create listing
@@ -86,16 +88,14 @@ CFLAGS += -std=gnu99
 #             files -- see avr-libc docs [FIXME: not yet described there]
 ASFLAGS = -Wa,-adhlns=$(<:.S=.lst),-gstabs 
 
-
-
+###############-----------------------------------------------###############
 # Optional linker flags.
 #  -Wl,...:   tell GCC to pass this to linker.
 #  -Map:      create map file
 #  --cref:    add cross reference to  map file
 LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
 
-
-
+###############-----------------------------------------------###############
 # Additional libraries
 
 # Minimalistic printf version
@@ -107,10 +107,10 @@ LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
 # -lm = math library
 LDFLAGS += -lm
 
-
+###############-----------------------------------------------###############
 # Programming support using avrdude. Settings and variables.
 
-
+###############-----------------------------------------------###############
 AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 #AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
 
@@ -140,7 +140,7 @@ AVRDUDE_FLAGS += -E reset #keep chip disabled while cable attached
 
 #AVRDUDE_WRITE_FLASH = -U lfuse:w:0x01:m #run with 1 Mhz clock no start up time
 
-# ---------------------------------------------------------------------------
+###############-----------------------------------------------###############
 
 # Define directories, if needed.
 DIRAVR = c:/winavr
@@ -170,8 +170,7 @@ COPY = cp
 HEXSIZE = $(SIZE) --target=$(FORMAT) $(TARGET).hex
 ELFSIZE = $(SIZE) -A $(TARGET).elf
 
-
-
+###############-----------------------------------------------###############
 # Define Messages
 # English
 MSG_ERRORS_NONE = Errors: none
@@ -190,9 +189,7 @@ MSG_COMPILING = Compiling:
 MSG_ASSEMBLING = Assembling:
 MSG_CLEANING = Cleaning project:
 
-
-
-
+###############-----------------------------------------------###############
 # Define all object files.
 OBJ = $(SRC:.c=.o) $(ASRC:.S=.o) 
 
@@ -205,7 +202,7 @@ ALL_CFLAGS = -mmcu=$(MCU) -I. $(CFLAGS)
 ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
-
+###############-----------------------------------------------###############
 # Default target: make program!
 all: begin gccversion sizebefore $(TARGET).elf $(TARGET).hex $(TARGET).eep \
 	$(TARGET).lss $(TARGET).sym sizeafter finished end
@@ -239,9 +236,6 @@ sizeafter:
 gccversion : 
 	@$(CC) --version
 
-
-
-
 # Convert ELF to COFF for use in debugging / simulating in
 # AVR Studio or VMLAB.
 COFFCONVERT=$(OBJCOPY) --debugging \
@@ -262,16 +256,12 @@ extcoff: $(TARGET).elf
 	@echo $(MSG_EXTENDED_COFF) $(TARGET).cof
 	$(COFFCONVERT) -O coff-ext-avr $< $(TARGET).cof
 
-
-
-
+###############-----------------------------------------------###############
 # Program the device.  
 program: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
-
-
-
+###############-----------------------------------------------###############
 # Create final output files (.hex, .eep) from ELF output file.
 %.hex: %.elf
 	@echo
@@ -296,8 +286,6 @@ program: $(TARGET).hex $(TARGET).eep
 	@echo $(MSG_SYMBOL_TABLE) $@
 	avr-nm -n $< > $@
 
-
-
 # Link: create ELF output file from object files.
 .SECONDARY : $(TARGET).elf
 .PRECIOUS : $(OBJ)
@@ -306,14 +294,14 @@ program: $(TARGET).hex $(TARGET).eep
 	@echo $(MSG_LINKING) $@
 	$(CC) $(ALL_CFLAGS) $(OBJ) --output $@ $(LDFLAGS)
 
-
+###############-----------------------------------------------###############
 # Compile: create object files from C source files.
 %.o : %.c
 	@echo
 	@echo $(MSG_COMPILING) $<
 	$(CC) -c $(ALL_CFLAGS) $< -o $@
 
-
+###############-----------------------------------------------###############
 # Compile: create assembler files from C source files.
 %.s : %.c
 	$(CC) -S $(ALL_CFLAGS) $< -o $@
@@ -325,11 +313,7 @@ program: $(TARGET).hex $(TARGET).eep
 	@echo $(MSG_ASSEMBLING) $<
 	$(CC) -c $(ALL_ASFLAGS) $< -o $@
 
-
-
-
-
-
+###############-----------------------------------------------###############
 # Target: clean project.
 clean: begin clean_list finished end
 
@@ -366,12 +350,12 @@ clean_list :
 	| sed 's,\(.*\)\.o[ :]*,\1.o \1.d : ,g' > $@; \
 	[ -s $@ ] || rm -f $@
 
-
+###############-----------------------------------------------###############
 # Remove the '-' if you want to see the dependency files generated.
 -include $(SRC:.c=.d)
 
-
-
+###############-----------------------------------------------###############
 # Listing of phony targets.
 .PHONY : all begin finish end sizebefore sizeafter gccversion coff extcoff \
 	clean clean_list program
+#End of the Make File
