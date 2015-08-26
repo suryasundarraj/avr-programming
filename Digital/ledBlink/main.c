@@ -18,5 +18,4 @@ int main(void)
 }
 //End of the Program
 
-    Status API Training Shop Blog About Pricing 
 
