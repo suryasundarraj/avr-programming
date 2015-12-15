@@ -11,7 +11,7 @@ BUILDING AN ENVIROINMENT
 In Windows, 
 
   - You can install AVR STUDIO 7 [LINK to Download](http://www.atmel.com/microsite/atmel-studio/) (or)
-  - You can install winAVR [LINK to Download](http://sourceforge.net/projects/winavr/files/WinAVR/20100110/)with Programmer's  Notepad which is light version to program the AVR Chip.
+  - You can install winAVR [LINK to Download](http://sourceforge.net/projects/winavr/files/WinAVR/20100110/) with Programmer's  Notepad which is light version to program the AVR Chip.
 
 In Linux,
 
