@@ -16,7 +16,7 @@ In Windows,
 In Linux,
 
   - You Should install avr-gcc, gcc latest version and avrdude (or simply install Arduino IDE it takes care of building the   
-    enviorinment for you to write the program to the chip using avrdude).
+    enviorinment).
 
 FLASHING THE FUSEBITS 
 
