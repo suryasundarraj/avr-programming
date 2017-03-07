@@ -54,7 +54,7 @@ LOW FUSE BYTE:
 
 To Write the fuse bits to the Chip follow the command:
 
-          avrdude -c USBasp -p m328p -U hfuse:0b11011001:m -U lfuse:0b11110111:m
+          avrdude -c USBasp -p m328p -U hfuse:w:0b11011001:m -U lfuse:w:0b11110111:m
 
 For ATmega 8:
 -------------
@@ -83,7 +83,7 @@ LOW FUSE BYTE:
 
 To Write the fuse bits to the Chip follow the command:
 
-          avrdude -c USBasp -p m8 -U hfuse:0b11001001:m -U lfuse:0b11111111:m
+          avrdude -c USBasp -p m8 -U hfuse:w:0b11001001:m -U lfuse:w:0b11111111:m
 
 
 PROGRAMMING THE CHIP:
